@@ -1,0 +1,100 @@
+.event-log {
+    width: 100%;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.event-log-header {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--glass-border);
+    background: linear-gradient(135deg, rgba(0, 255, 245, 0.1), rgba(181, 55, 242, 0.1));
+}
+
+.event-log-header h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-neon-cyan);
+    text-shadow: 0 0 10px var(--color-neon-cyan);
+}
+
+.event-log-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-sm);
+}
+
+.event-log-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    color: var(--color-text-muted);
+    font-style: italic;
+}
+
+.event-log-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.event-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    border-left: 3px solid transparent;
+    transition: all var(--transition-fast);
+    animation: slide-in-up var(--transition-base) ease-out;
+}
+
+.event-item:hover {
+    background: var(--color-surface-hover);
+    transform: translateX(2px);
+}
+
+.event-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.event-message {
+    flex: 1;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--color-text-secondary);
+}
+
+.event-item.event-danger {
+    border-left-color: var(--color-danger);
+}
+
+.event-item.event-danger .event-message {
+    color: var(--color-danger);
+}
+
+.event-item.event-success {
+    border-left-color: var(--color-success);
+}
+
+.event-item.event-success .event-message {
+    color: var(--color-success);
+}
+
+.event-item.event-info {
+    border-left-color: var(--color-info);
+}
+
+.event-item.event-info .event-message {
+    color: var(--color-info);
+}
+
+.event-item.event-default {
+    border-left-color: var(--color-text-muted);
+}

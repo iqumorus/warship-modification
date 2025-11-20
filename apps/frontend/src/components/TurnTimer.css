@@ -1,0 +1,105 @@
+.turn-timer {
+  background: #34495e;
+  color: white;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 250px;
+}
+
+.turn-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+}
+
+.turn-label {
+  color: #bdc3c7;
+}
+
+.turn-number {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: #3498db;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.timer-normal {
+  background: #27ae60;
+}
+
+.timer-warning {
+  background: #f39c12;
+  animation: pulse-warning 1s ease-in-out infinite;
+}
+
+.timer-critical {
+  background: #e74c3c;
+  animation: pulse-critical 0.5s ease-in-out infinite;
+}
+
+@keyframes pulse-warning {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes pulse-critical {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.timer-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.timer-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  flex: 1;
+  text-align: center;
+}
+
+.timer-bar-container {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3498db, #2ecc71);
+  transition: width 1s linear;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .turn-timer {
+    min-width: 200px;
+  }
+  
+  .timer-value {
+    font-size: 1.5rem;
+  }
+}
+
