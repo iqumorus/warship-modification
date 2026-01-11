@@ -1,162 +1,115 @@
 .game-board-container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
-  flex: 1;
+  gap: 12px;
+  width: 100%;
+  height: 100%;
 }
 
 .board-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
   text-align: center;
-  color: var(--color-neon-cyan);
-  text-shadow: var(--glow-cyan);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  color: #1a1a1a;
 }
 
 .game-board {
-  display: inline-flex;
-  flex-direction: column;
-  gap: 2px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  padding: var(--spacing-lg);
-  border-radius: var(--radius-xl);
-  border: 2px solid var(--glass-border);
-  box-shadow: var(--shadow-lg);
+  display: grid;
+  grid-template-columns: 30px repeat(10, 1fr);
+  grid-template-rows: 30px repeat(10, 1fr);
+  background: #ffffff;
+  border: 2px solid #333333;
   position: relative;
-  overflow: hidden;
-}
-
-.game-board::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 255, 245, 0.03) 0%, rgba(181, 55, 242, 0.03) 100%);
-  pointer-events: none;
-  z-index: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
 }
 
 .board-row {
-  display: flex;
-  gap: 2px;
-  position: relative;
-  z-index: 1;
+  display: contents;
 }
 
 .header-row {
-  margin-bottom: var(--spacing-xs);
+  display: contents;
 }
 
 .board-cell {
-  width: 40px;
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   position: relative;
+  border: 1px solid #e8e8e8;
 }
 
 .header-cell {
-  font-family: var(--font-display);
   font-weight: 600;
-  color: var(--color-neon-cyan);
-  background: transparent;
-  text-shadow: 0 0 5px var(--color-neon-cyan);
+  color: #333333;
+  background: #ffffff;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.corner-cell {
+  background: #ffffff;
+  border: none;
 }
 
 .cell {
-  background: rgba(10, 20, 40, 0.5);
-  border: 1px solid rgba(0, 255, 245, 0.2);
-  border-radius: var(--radius-sm);
+  background: #ffffff;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all 0.15s ease;
   position: relative;
-  overflow: hidden;
-}
-
-.cell::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent, rgba(0, 255, 245, 0.1));
-  opacity: 0;
-  transition: opacity var(--transition-fast);
-}
-
-.cell:hover::before {
-  opacity: 1;
 }
 
 .cell:hover {
-  border-color: var(--color-neon-cyan);
-  box-shadow: 0 0 10px rgba(0, 255, 245, 0.3);
-  transform: scale(1.05);
-  z-index: 10;
+  background: #f5f5f5;
 }
 
 /* Cell States */
 .cell-fog {
-  background: rgba(10, 20, 40, 0.8);
-  border-color: rgba(100, 100, 100, 0.3);
-}
-
-.cell-fog::after {
-  content: '?';
-  position: absolute;
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.1);
-  font-weight: bold;
+  background: #e8e8e8;
+  cursor: default;
 }
 
 .cell-fog:hover {
-  transform: none;
+  background: #e8e8e8;
 }
 
 .cell-unit {
-  background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(181, 55, 242, 0.3));
-  border-color: var(--color-neon-blue);
-  box-shadow: inset 0 0 10px rgba(0, 212, 255, 0.5);
+  background: #333333;
+  border-color: #1a1a1a;
 }
 
-.cell-unit .cell-unit {
-  font-size: 1.5rem;
-  filter: drop-shadow(0 0 5px var(--color-neon-blue));
+.cell-unit-icon {
+  font-size: 1.2rem;
 }
 
 .cell-hit {
-  background: radial-gradient(circle, rgba(255, 0, 85, 0.6) 0%, rgba(255, 100, 0, 0.3) 100%);
-  border-color: var(--color-danger);
-  animation: pulse-glow 1s ease-in-out;
+  background: #ff4444;
+  border-color: #cc0000;
 }
 
 .cell-miss {
-  background: rgba(100, 100, 100, 0.3);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #cccccc;
+  border-color: #999999;
 }
 
 .cell-selected {
-  border-color: var(--color-neon-magenta);
-  box-shadow: 0 0 20px var(--color-neon-magenta), inset 0 0 20px rgba(255, 0, 255, 0.3);
-  animation: pulse-glow 1.5s ease-in-out infinite;
+  background: #ffeb3b;
+  border-color: #fbc02d;
 }
 
 .cell-highlighted {
-  border-color: var(--color-neon-green);
-  box-shadow: 0 0 15px var(--color-neon-green);
-  background: rgba(57, 255, 20, 0.2);
+  background: #ffeb3b;
+  border-color: #fbc02d;
 }
 
 .cell-marker {
-  font-size: 1.8rem;
-  filter: drop-shadow(0 0 5px currentColor);
-  animation: fade-in var(--transition-base) ease-out;
+  font-size: 1.5rem;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -165,7 +118,7 @@
 }
 
 .cell-marker.hit {
-  animation: pulse-glow 0.5s ease-out, fade-in var(--transition-base) ease-out;
+  animation: fade-in 0.3s ease-out;
 }
 
 .cell-marker.miss {
@@ -174,30 +127,61 @@
 
 /* Visibility Zones */
 .cell-lit {
-  background: rgba(0, 255, 245, 0.1);
-  border-color: rgba(0, 255, 245, 0.4);
+  background: #f0f0f0;
+  border-color: #b0b0b0;
 }
 
-.cell-lit::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(0, 255, 245, 0.2) 0%, transparent 70%);
-  animation: pulse-glow 2s ease-in-out infinite;
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .board-cell {
-    width: 32px;
-    height: 32px;
-  }
-
-  .header-cell {
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .cell-marker {
     font-size: 1.2rem;
   }
+}
+
+/* Movement cells highlighting */
+.cell-movement {
+  background: #d0d0d0 !important;
+  border-color: #a0a0a0;
+  cursor: pointer;
+}
+
+.cell-movement:hover {
+  background: #c0c0c0 !important;
+}
+
+/* Ship cannon count display */
+.ship-cannon-count {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffffff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.cell-unit {
+  background: #2c3e50 !important;
+  border-color: #1a252f;
+}
+
+.cell-unit:hover {
+  background: #34495e !important;
 }

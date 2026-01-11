@@ -7,7 +7,9 @@ interface GameBoardProps {
   onCellClick?: (pos: Position) => void;
   selectedCell?: Position | null;
   highlightedCells?: Position[];
+  movementCells?: Position[];
   showUnits?: boolean;
+  playerUnits?: any[];
 }
 
 export default function GameBoard({
@@ -16,7 +18,9 @@ export default function GameBoard({
   onCellClick,
   selectedCell,
   highlightedCells = [],
+  movementCells = [],
   showUnits = false,
+  playerUnits = [],
 }: GameBoardProps) {
   const getCellClassName = (cell: Cell): string => {
     const classes = ['cell'];
@@ -38,6 +42,13 @@ export default function GameBoard({
       classes.push('cell-highlighted');
     }
 
+    const isMovementCell = movementCells.some(
+      (p) => p.row === cell.position.row && p.col === cell.position.col
+    );
+    if (isMovementCell) {
+      classes.push('cell-movement');
+    }
+
     if (!isPlayerBoard && !cell.visible) {
       classes.push('cell-fog');
     }
@@ -53,12 +64,10 @@ export default function GameBoard({
 
   return (
     <div className="game-board-container">
-      <div className="board-title">{isPlayerBoard ? 'Ваше поле' : 'Поле противника'}</div>
-
       <div className="game-board">
         {/* Column headers */}
         <div className="board-row header-row">
-          <div className="board-cell header-cell"></div>
+          <div className="board-cell header-cell corner-cell"></div>
           {Array.from({ length: 10 }).map((_, col) => (
             <div key={col} className="board-cell header-cell">
               {getColumnLabel(col)}
@@ -69,7 +78,7 @@ export default function GameBoard({
         {/* Board rows */}
         {board.map((row, rowIdx) => (
           <div key={rowIdx} className="board-row">
-            {/* Row header */}
+            {/* Row header on the left */}
             <div className="board-cell header-cell">{getRowLabel(rowIdx)}</div>
 
             {/* Cells */}
@@ -79,13 +88,19 @@ export default function GameBoard({
                 className={`board-cell ${getCellClassName(cell)}`}
                 onClick={() => handleCellClick(cell.position)}
               >
-                {showUnits && cell.unitId && (
-                  <div className="cell-unit">
-                    {cell.status === 'unit' ? '🚢' : ''}
-                  </div>
-                )}
-                {cell.status === 'hit' && <div className="cell-marker hit">💥</div>}
-                {cell.status === 'miss' && <div className="cell-marker miss">💨</div>}
+                {showUnits && cell.unitId && cell.status === 'unit' && (() => {
+                  const unit = playerUnits.find((u: any) => u.id === cell.unitId);
+                  if (unit) {
+                    return (
+                      <div className="ship-cannon-count">
+                        {unit.health}
+                      </div>
+                    );
+                  }
+                  return null;
+                })()}
+                {cell.status === 'hit' && <div className="cell-marker hit">X</div>}
+                {cell.status === 'miss' && <div className="cell-marker miss">•</div>}
               </div>
             ))}
           </div>

@@ -2,7 +2,9 @@ export type UnitType = 'single' | 'double' | 'triple' | 'quadruple';
 
 export type CellStatus = 'unknown' | 'empty' | 'unit' | 'hit' | 'miss';
 
-export type GamePhase = 'lobby' | 'deployment' | 'battle' | 'ended';
+export type GamePhase = 'lobby' | 'prematch' | 'deployment' | 'battle' | 'ended';
+
+export type TurnPhase = 'deployment' | 'movement' | 'shooting';
 
 export interface Position {
   row: number;
@@ -65,6 +67,9 @@ export interface UnitMovement {
 export interface GameState {
   phase: GamePhase;
   currentTurn: number;
+  currentTurnPhase: TurnPhase;
+  deploymentSequenceIndex: number;
+  movementCompleted: boolean;
   timePerTurn: number; // seconds
   turnTimeRemaining: number;
   playerUnits: Unit[];
@@ -73,6 +78,7 @@ export interface GameState {
   opponentBoard: Cell[][];
   pendingShots: Position[];
   availableShots: number;
+  availableMovementCells: Position[];
   currentDeploymentType: UnitType | null;
   eventLog: GameEvent[];
   selectedCell: Position | null;
